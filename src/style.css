@@ -1,0 +1,35 @@
+.background {
+  position: absolute;
+  background-image: url(../assets/background.jpg);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center center;
+  background-size: cover;
+}
+
+.track-title {
+  position: absolute;
+  top: 200px;
+  width: 100vw;
+  color: white;
+  font-size: 100px;
+  text-align: center;
+}
+
+.visualizer-container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 250px;
+  text-align: center;
+}
+
+.visualizer-container__bar {
+  display: inline-block;
+  background-color: white;
+  margin: 0 2px;
+  width: 2px;
+  height: 0px;
+}
