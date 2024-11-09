@@ -1,6 +1,6 @@
 .background {
   position: absolute;
-  background-image: url(../assets/background.jpg);
+  background-image: url(./assets/background.jpg);
   top: 0;
   right: 0;
   bottom: 0;
