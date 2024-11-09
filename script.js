@@ -1,7 +1,7 @@
 (function () {
   const audio = document.querySelector("audio");
 
-  const NUM_OF_BARS = 50;
+  const NUM_OF_BARS = 80;
 
   // 오디오 컨텍스트 생성
   const ctx = new AudioContext();
@@ -48,10 +48,6 @@
   }
 
   randerFrame();
-
-  setInterval(() => {
-    randerFrame();
-  }, 1000);
 
   audio.play();
 })();

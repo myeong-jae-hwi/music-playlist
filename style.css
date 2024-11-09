@@ -11,10 +11,11 @@
 
 .track-title {
   position: absolute;
+  font-family: "Playfair Display", serif;
   top: 200px;
   width: 100vw;
   color: white;
-  font-size: 100px;
+  font-size: 84px;
   text-align: center;
 }
 
@@ -22,7 +23,7 @@
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 250px;
+  bottom: 350px;
   text-align: center;
 }
 
@@ -32,4 +33,5 @@
   margin: 0 2px;
   width: 2px;
   height: 0px;
+  transform: translateY(50%);
 }
