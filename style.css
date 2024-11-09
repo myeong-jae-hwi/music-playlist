@@ -1,30 +1,27 @@
-.background {
-  position: absolute;
+body {
   background-image: url(./assets/background.jpg);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  height: 100vh;
   background-position: center center;
   background-size: cover;
 }
 
 .track-title {
-  position: absolute;
   font-family: "Playfair Display", serif;
-  top: 200px;
   width: 100vw;
   color: white;
-  font-size: 84px;
+  font-size: 5.25rem;
   text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 3rem;
+  }
 }
 
 .visualizer-container {
+  width: 100vw;
   position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 350px;
   text-align: center;
+  bottom: 350px;
 }
 
 .visualizer-container__bar {
@@ -32,6 +29,6 @@
   background-color: white;
   margin: 0 2px;
   width: 2px;
-  height: 0px;
+  transform-origin: center;
   transform: translateY(50%);
 }
