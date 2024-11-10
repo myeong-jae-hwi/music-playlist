@@ -36,6 +36,9 @@ body::before {
   margin-bottom: 3.875rem;
   margin-block: 3.875rem;
   position: relative;
+  text-align: center;
+  gap: 20px;
+  color: white;
   @media (max-width: 480px) {
     height: 300px;
   }
@@ -57,6 +60,12 @@ body::before {
     height: 11rem;
     block-size: 11rem;
   }
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgb(234, 234, 234);
 }
 
 .track-title {
