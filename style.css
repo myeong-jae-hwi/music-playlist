@@ -21,7 +21,7 @@ body::before {
   top: -20px;
   left: -20px;
   width: calc(100vw + 40px);
-  height: calc(100vh + 40px);
+  height: calc(100vh + 120px);
   background-position: center center;
   background-size: cover;
   filter: blur(10px);
@@ -76,7 +76,7 @@ body::before {
   width: 100vw;
   position: absolute;
   text-align: center;
-  bottom: 50px;
+  bottom: 20px;
 }
 
 .visualizer-container__bar {

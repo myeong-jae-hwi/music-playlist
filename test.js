@@ -5,6 +5,70 @@ let isPlay = false;
 const audio = document.querySelector(".audio");
 let index = 0;
 
+(function () {
+  // 스펙트럼 막대 개수
+  let NUM_OF_BARS = 40;
+
+  // 오디오 컨텍스트와 분석기 생성
+  const ctx = new AudioContext();
+  const audioSource = ctx.createMediaElementSource(audio);
+  const analyzer = ctx.createAnalyser();
+  audioSource.connect(analyzer);
+  audioSource.connect(ctx.destination);
+
+  // 주파수 데이터를 담을 배열 초기화
+  const frequencyData = new Uint8Array(analyzer.frequencyBinCount);
+
+  // 시각화 컨테이너
+  const visualizerContainer = document.querySelector(".visualizer-container");
+
+  // 막대 초기화 함수
+  function initializeVisualizer() {
+    visualizerContainer.innerHTML = "";
+
+    for (let i = 0; i < NUM_OF_BARS; i++) {
+      const bar = document.createElement("DIV");
+      bar.setAttribute("id", "bar" + i);
+      bar.setAttribute("class", "visualizer-container__bar");
+      visualizerContainer.appendChild(bar);
+    }
+  }
+
+  // 초기 막대 생성
+  initializeVisualizer();
+
+  // 화면 크기 변경 감지하여 막대 개수 조정
+  const mediaQuery = matchMedia("screen and (min-width: 480px)");
+
+  // 미디어 쿼리 변경 이벤트 핸들러
+  function handleResize(e) {
+    NUM_OF_BARS = e.matches ? 40 : 30;
+    initializeVisualizer();
+  }
+
+  // 이벤트 리스너 추가
+  mediaQuery.addEventListener("change", handleResize);
+
+  // 초기 상태 설정
+  handleResize(mediaQuery);
+
+  function renderFrame() {
+    analyzer.getByteFrequencyData(frequencyData);
+
+    for (let i = 0; i < NUM_OF_BARS; i++) {
+      const fd = frequencyData[i * 10];
+      const bar = document.querySelector(`#bar${i}`);
+      if (bar) {
+        const barHeight = fd || 0;
+        bar.style.height = `${barHeight / 5}px`;
+      }
+    }
+    requestAnimationFrame(renderFrame);
+  }
+
+  renderFrame();
+})();
+
 // 현재 인덱스 실행
 function musicStart(idx) {
   audio.src = `./assets/music/${MUSIC_ARR[idx]}.mp3`;
@@ -18,7 +82,7 @@ const mainBtn = document.querySelector(".mainBtn");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
-// 노래 시작
+// 일시정지
 
 function pauseMusic() {
   mainBtn.classList.remove("play");
@@ -28,7 +92,7 @@ function pauseMusic() {
   mainBtn.style.backgroundImage = "url(./assets/images/svg/play.svg)";
 }
 
-// 노래 끝
+// 노래 시작
 
 function playMusic() {
   mainBtn.classList.add("play");
