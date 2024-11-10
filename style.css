@@ -1,11 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  background-image: url(./assets/background.jpg);
-  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+audio {
+  display: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  width: calc(100vw + 40px);
+  height: calc(100vh + 40px);
   background-position: center center;
   background-size: cover;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.contianer {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  margin-top: 2.875rem;
+  margin-bottom: 3.875rem;
+  margin-block: 3.875rem;
+  position: relative;
+  @media (max-width: 480px) {
+    height: 300px;
+  }
+}
+
+.album {
+  width: 17rem;
+  inline-size: 17rem;
+  height: 17rem;
+  block-size: 17rem;
+  margin: 0 auto;
+  background-position: center center;
+  background-size: cover;
+  border: solid 5px rgb(234, 234, 234);
+
+  @media (max-width: 480px) {
+    width: 11rem;
+    inline-size: 11rem;
+    height: 11rem;
+    block-size: 11rem;
+  }
 }
 
 .track-title {
+  margin-top: 80px;
   font-family: "Playfair Display", serif;
   width: 100vw;
   color: white;
@@ -21,7 +76,7 @@ body {
   width: 100vw;
   position: absolute;
   text-align: center;
-  bottom: 350px;
+  bottom: 50px;
 }
 
 .visualizer-container__bar {
@@ -31,4 +86,49 @@ body {
   width: 2px;
   transform-origin: center;
   transform: translateY(50%);
+}
+
+.btn-container {
+  display: flex;
+  width: 25rem;
+  inline-size: 25rem;
+  justify-self: center;
+  justify-content: space-evenly;
+}
+
+button {
+  width: 4rem;
+  block-size: 4rem;
+  inline-size: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(207, 207, 207, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 15px;
+  background-origin: content-box;
+  cursor: pointer;
+}
+
+.play {
+  background-image: url(./assets/images/svg/play.svg);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.next {
+  background-image: url(./assets/images/svg/next.svg);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.prev {
+  background-image: url(./assets/images/svg/prev.svg);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
