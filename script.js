@@ -18,10 +18,10 @@ let index = 0;
   audioSource.connect(analyzer);
   audioSource.connect(ctx.destination);
 
-  // 주파수 데이터를 담을 배열 초기화
+  // 주파수 데이터
   const frequencyData = new Uint8Array(analyzer.frequencyBinCount);
 
-  // 시각화 컨테이너
+  // 비주얼라이저 컨테이너
   const visualizerContainer = document.querySelector(".visualizer-container");
 
   // 막대 초기화 함수
@@ -39,10 +39,10 @@ let index = 0;
   // 초기 막대 생성
   initializeVisualizer();
 
-  // 화면 크기 변경 감지하여 막대 개수 조정
+  // 미디어 쿼리
   const mediaQuery = matchMedia("screen and (min-width: 480px)");
 
-  // 미디어 쿼리 변경 이벤트 핸들러
+  // 미디어 쿼리 이벤트 핸들러
   function handleResize(e) {
     NUM_OF_BARS = e.matches ? 40 : 30;
     bottomMargin = e.matches ? 0 : 20;
@@ -52,12 +52,11 @@ let index = 0;
     initializeVisualizer();
   }
 
-  // 이벤트 리스너 추가
   mediaQuery.addEventListener("change", handleResize);
 
-  // 초기 상태 설정
   handleResize(mediaQuery);
 
+  // 랜더링
   function renderFrame() {
     analyzer.getByteFrequencyData(frequencyData);
 
@@ -77,8 +76,17 @@ let index = 0;
 
 // 현재 인덱스 실행
 function musicStart(idx) {
-  audio.src = `./assets/music/${MUSIC_ARR[idx]}.mp3`;
-  console.log(audio.src);
+  const audioSrc = `./assets/music/${MUSIC_ARR[idx]}.mp3`;
+
+  // 캐싱 확인
+  const cachedAudio = localStorage.getItem(audioSrc);
+  if (cachedAudio) {
+    audio.src = cachedAudio;
+  } else {
+    audio.src = audioSrc;
+    // 캐싱
+    localStorage.setItem(audioSrc, audioSrc);
+  }
 
   audio.load();
 }
@@ -116,8 +124,6 @@ function playMusic() {
 // 재생 & 일시정지 이벤트리스너
 
 mainBtn.addEventListener("click", () => {
-  console.log(isPlay);
-
   //pause
   if (isPlay) {
     pauseMusic();
