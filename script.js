@@ -180,12 +180,12 @@ function albumImg(idx) {
   style.textContent = `
     body::before {
       transition: .3s;
-      background-image: url('./assets/images/${MUSIC_ARR[idx]}.jpg');
+      background-image: url('./assets/images/${MUSIC_ARR[idx]}.webp');
     }
   `;
   document.head.appendChild(style);
   album.style.transition = ".3s";
-  album.style.backgroundImage = `url('./assets/images/${MUSIC_ARR[idx]}.jpg')`;
+  album.style.backgroundImage = `url('./assets/images/${MUSIC_ARR[idx]}.webp')`;
 }
 
 window.addEventListener("load", () => {
