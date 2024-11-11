@@ -77,7 +77,9 @@ let index = 0;
 
 // 현재 인덱스 실행
 function musicStart(idx) {
-  audio.src = `/music_spectrum/assets/music/${MUSIC_ARR[idx]}.mp3`;
+  audio.src = `music_spectrum/assets/music/${MUSIC_ARR[idx]}.mp3`;
+  console.log(audio.src);
+
   audio.load();
 }
 
