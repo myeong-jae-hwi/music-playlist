@@ -6,15 +6,16 @@ let isPlay = false;
 const audio = document.querySelector(".audio");
 let index = 0;
 
-(function () {
-  // 스펙트럼 막대 개수
-  let NUM_OF_BARS = 40;
-  let bottomMargin = 20;
+// 스펙트럼 막대 개수
+let NUM_OF_BARS = 40;
+let bottomMargin = 20;
 
-  // 오디오 컨텍스트와 분석기 생성
-  const ctx = new AudioContext();
-  const audioSource = ctx.createMediaElementSource(audio);
-  const analyzer = ctx.createAnalyser();
+// 오디오 컨텍스트와 분석기 생성
+const ctx = new AudioContext();
+const audioSource = ctx.createMediaElementSource(audio);
+const analyzer = ctx.createAnalyser();
+
+function spectrum() {
   audioSource.connect(analyzer);
   audioSource.connect(ctx.destination);
 
@@ -72,7 +73,7 @@ let index = 0;
   }
 
   renderFrame();
-})();
+}
 
 // 현재 인덱스 실행
 function musicStart(idx) {
@@ -111,6 +112,7 @@ function pauseMusic() {
 // 노래 시작
 
 function playMusic() {
+  spectrum();
   mainBtn.classList.add("play");
   audio.play();
   mainBtn.style.backgroundImage = "url(./assets/images/svg/pause.svg)";
