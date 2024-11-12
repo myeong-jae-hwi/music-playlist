@@ -6,18 +6,30 @@ let isPlay = false;
 const audio = document.querySelector(".audio");
 let index = 0;
 
-// 스펙트럼 막대 개수
-let NUM_OF_BARS = 40;
-let bottomMargin = 20;
+let ctx;
+let audioSource;
+let analyzer;
+let isInitialized = false;
 
-// 오디오 컨텍스트와 분석기 생성
-const ctx = new AudioContext();
-const audioSource = ctx.createMediaElementSource(audio);
-const analyzer = ctx.createAnalyser();
+function initAudio() {
+  if (isInitialized === false) {
+    ctx = new AudioContext();
+    audioSource = ctx.createMediaElementSource(audio);
+    analyzer = ctx.createAnalyser();
+
+    // 오디오 컨텍스트와 분석기 생성
+    audioSource.connect(analyzer);
+    audioSource.connect(ctx.destination);
+    isInitialized = true;
+  }
+}
 
 function spectrum() {
-  audioSource.connect(analyzer);
-  audioSource.connect(ctx.destination);
+  initAudio();
+
+  // 스펙트럼 막대 개수
+  let NUM_OF_BARS = 40;
+  let bottomMargin = 20;
 
   // 주파수 데이터
   const frequencyData = new Uint8Array(analyzer.frequencyBinCount);
