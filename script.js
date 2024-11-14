@@ -1,5 +1,5 @@
-const MUSIC_ARR = ["dori", "pateco", "QWER", "HAPPY"];
-const TITLE = ["헤어지자", "너를 떠올리는 중이야", "내이름 맑음", "HAPPY"];
+const MUSIC_ARR = ["dori", "pateco", "QWER", "HAPPY", "너를 생각해", "늦은 밤 너의 집 앞 골목길에서", "서툰 이별을 하려해"];
+const TITLE = ["헤어지자", "너를 떠올리는 중이야", "내이름 맑음", "HAPPY", "너를 생각해", "늦은 밤 너의 집 앞 골목길에서", "서툰 이별을 하려해"];
 let isPlay = false;
 
 // 오디오 선언
@@ -10,6 +10,9 @@ let ctx;
 let audioSource;
 let analyzer;
 let isInitialized = false;
+
+let progressBar = document.querySelector(".progress__bar");
+const progress = document.querySelector(".progress");
 
 function initAudio() {
   if (isInitialized === false) {
@@ -78,7 +81,7 @@ function spectrum() {
       const bar = document.querySelector(`#bar${i}`);
       if (bar) {
         const barHeight = fd || 0;
-        bar.style.height = `${barHeight / 5}px`;
+        bar.style.height = `${barHeight / 10}px`;
       }
     }
     requestAnimationFrame(renderFrame);
@@ -125,6 +128,30 @@ function pauseMusic() {
 
 function playMusic() {
   spectrum();
+
+  audio.addEventListener("timeupdate", (e) => {
+    // console.log(e);
+
+    // 프로그래스 바 진행 리스너
+    const currentTime = e.target.currentTime; // 현재 재생되는 시간
+    const duration = e.target.duration; // 오디오의  총 길이
+    let progressWidth = (currentTime / duration) * 100;
+    progressBar.style.width = `${progressWidth}%`;
+  });
+
+  // 클릭 이벤트 리스터
+  progress.addEventListener("click", (e) => {
+    console.log("click");
+
+    let progressWidth = progress.clientWidth;
+
+    let clickedOffsetX = e.offsetX;
+    let songDuration = audio.duration;
+
+    audio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
+    console.log(progressWidth);
+  });
+
   mainBtn.classList.add("play");
   audio.play();
   mainBtn.style.backgroundImage = "url(./assets/images/svg/pause.svg)";
@@ -212,6 +239,5 @@ function albumImg(idx) {
 
 window.addEventListener("load", () => {
   albumImg(index);
-
   musicStart(index);
 });
